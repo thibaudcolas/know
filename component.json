@@ -1,0 +1,7 @@
+{
+  "name": "know.js",
+  "version": "0.5.0",
+  "dependencies": {
+    "jquery": "latest"
+  }
+}

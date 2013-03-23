@@ -1,11 +1,11 @@
 /**
- * know.js — v0.2.0
+ * know.js — v0.5.0
  * ---------------------------------------------------------------------
  * A simple tool to log stuff inside the console and beyond.
  * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
  */
-
-!(function (factory, $) {
+s
+(function (factory, $) {
   if (typeof define === 'function') {
     define(['$'], factory);
   } else {
@@ -33,7 +33,7 @@
      */
 
     self.name = 'know.js';
-    self.version = 'v0.2.0';
+    self.version = 'v0.5.0';
     self.sep = '|';
     self.base = 'know';
 
@@ -78,8 +78,9 @@
       first: '- first define a key w/ know.init(key, store?)',
       secund: '- then log to console w/ know.{info,warn,error}(message)',
       third: '- your logs are stored w/ (store? local : session) + Storage',
-      fourth: '- you can view your logs w/ know.show(). Close on mouseleave.',
-      fifth: '- you can share your logs w/ know.share() as GitHub Gists.'
+      fourth: '- view your logs w/ know.show() - close.on(mouseleave)',
+      fifth: '- share your logs w/ know.share() as GitHub gists',
+      sixth: '- bookmarklet: javascript:{know.show();};void(0);'
     };
 
     /**
