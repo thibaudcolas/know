@@ -14,20 +14,22 @@
 })(function ($) {
   'use strict';
 
-  var cons = window.console;
-
   window.know = {};
 
   var Knowledge = function () {
+    var cons = window.console;
     var self = this;
 
     self.name = 'know.js';
-    self.version = 'v0.0.1';
+    self.version = 'v0.1.0';
     self.sep = '|';
 
     self.base = 'know';
     self.key = null;
     self.token = null;
+    self.id = null;
+
+    self.storage = window.sessionStorage;
 
     self.level = {
       info: 'info',
@@ -35,27 +37,33 @@
       fail: 'fail'
     };
 
-    self.storage = {
-      key: function () {
-        return self.base + '.' + self.key + '.' + self.token;
-      }
+    self.store = function (line) {
+      var raw = self.storage.getItem(self.name);
+      var logs = raw ? $.parseJSON(raw) : {};
+      var lines = logs[self.id] || [];
+
+      lines.push(line);
+      logs[self.id] = lines;
+      self.storage.setItem(self.name, JSON.stringify(logs));
     };
 
     self.log = function (level, message) {
-      cons.log(self.key + self.sep + level + self.sep + message);
+      var line = self.key + self.sep + level + self.sep + message;
+      cons.log(line);
+      self.store(line);
     };
 
     self.api = {
       help: function () {
         cons.log(self.name + ' ' + self.version + ' — help :');
-        if (!self.key) {
-          cons.log('- define a key w/ know.init(key)');
-          cons.log('- log to console w/ know.{info,warn,fail}(message)');
-        }
+        cons.log('- first define a key w/ know.init(key, store)');
+        cons.log('- then log to console w/ know.{info,warn,fail}(message)');
       },
-      init: function (key) {
+      init: function (key, store) {
         self.key = key || self.base;
         self.token = Date.now();
+        self.id = self.base + '.' + self.key;
+        self.storage = store ? window.localStorage : window.sessionStorage;
       },
       info: function (message) {
         self.log(self.level.info, message);
@@ -77,6 +85,16 @@
           line = (typeof val == 'function') ? 'function' : val;
           cons.log(key + ': ' + line);
         });
+      },
+      reset: function () {
+        self.storage.removeItem(self.name);
+        self.storage.setItem(self.name, JSON.stringify({}));
+      },
+      clear: function () {
+        var raw = self.storage.getItem(self.name);
+        if ($.parseJSON(raw).hasOwnProperty(self.id)) {
+          self.storage.setItem(self.id, JSON.stringify([]));
+        }
       }
     };
 
