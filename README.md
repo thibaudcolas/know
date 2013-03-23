@@ -13,6 +13,8 @@ This is a little weekend project which I built to try to make the [Console API](
 
 ## Demo
 
+A simple demo is available [here](https://rawgithub.com/ThibWeb/know/master/index.html#). Notice the URL ? Kudos to [rawgithub.com](https://rawgithub.com) for providing this neat little trick.
+
 ## Install
 
 Assuming you use jQuery, simply add `<script src="know.js"></script>` to your page. know.js is compatible with jQuery 1.4+.
