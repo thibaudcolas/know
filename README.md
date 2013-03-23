@@ -1,11 +1,11 @@
-,,,javascript
+```javascript
   /**
    * know.js — v0.5.0
    * ---------------------------------------------------------------------
    * A simple tool to log stuff inside the console and beyond.
    * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
    */
-,,,
+```
 
 ## Why
 
@@ -17,7 +17,7 @@ This is a little weekend project which I built to try to make the [Console API](
 
 ## Usage
 
-,,,javascript
+```javascript
   self.usage = {
     title: 'know.js ' + self.version + ' — know.help() :',
     first: '- first define a key w/ know.init(key, store?)',
@@ -27,4 +27,4 @@ This is a little weekend project which I built to try to make the [Console API](
     fifth: '- share your logs w/ know.share() as GitHub gists',
     sixth: '- bookmarklet: javascript:{know.show();};void(0);'
   };
-,,,
+```
