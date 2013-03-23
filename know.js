@@ -1,5 +1,5 @@
 /**
- * know.js — v0.5.0
+ * know.js — v0.5.1
  * ---------------------------------------------------------------------
  * A simple tool to log stuff inside the console and beyond.
  * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
@@ -33,7 +33,7 @@
      */
 
     self.name = 'know.js';
-    self.version = 'v0.5.0';
+    self.version = 'v0.5.1';
     self.sep = '|';
     self.base = 'know';
 
@@ -48,6 +48,7 @@
       css: {
         border: '1px solid DarkSlateGray',
         outline: '1px dashed LightSteelBlue',
+        'background-color': 'white',
         position: 'absolute',
         'z-index': '1001',
         top: '25%',
