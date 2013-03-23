@@ -1,5 +1,5 @@
 /**
- * know.js — v0.1.0
+ * know.js — v0.2.0
  * ---------------------------------------------------------------------
  * A simple tool to log stuff inside the console and beyond.
  * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
@@ -21,7 +21,7 @@
     var self = this;
 
     self.name = 'know.js';
-    self.version = 'v0.1.0';
+    self.version = 'v0.2.0';
     self.sep = '|';
 
     self.base = 'know';
@@ -30,11 +30,18 @@
     self.id = null;
 
     self.storage = window.sessionStorage;
+    self.popup = 'know-popup';
 
     self.level = {
       info: 'info',
       warn: 'warn',
-      fail: 'fail'
+      error: 'error'
+    };
+
+    self.usage = {
+      title: self.name + ' ' + self.version + ' — know.help() :',
+      first: '- first define a key w/ know.init(key, store?)',
+      secund: '- then log to console w/ know.{info,warn,error}(message)'
     };
 
     self.store = function (line) {
@@ -49,33 +56,36 @@
 
     self.log = function (level, message) {
       var line = self.key + self.sep + level + self.sep + message;
-      cons.log(line);
+      cons[level](line);
       self.store(line);
     };
 
-    self.api = {
+    var start = {
       help: function () {
-        cons.log(self.name + ' ' + self.version + ' — help :');
-        cons.log('- first define a key w/ know.init(key, store)');
-        cons.log('- then log to console w/ know.{info,warn,fail}(message)');
+        $.each(self.usage, function (key, val) {
+          cons.log(val);
+        });
       },
       init: function (key, store) {
         self.key = key || self.base;
         self.token = Date.now();
         self.id = self.base + '.' + self.key;
         self.storage = store ? window.localStorage : window.sessionStorage;
-      },
+      }
+    };
+
+    var logging = {
       info: function (message) {
         self.log(self.level.info, message);
       },
       warn: function (message) {
         self.log(self.level.warn, message);
       },
-      fail: function (message) {
-        self.log(self.level.fail, message);
+      error: function (message) {
+        self.log(self.level.error, message);
       },
       dir: function (obj) {
-        cons.log(obj.name + ': ' + obj);
+        self.log(self.level.info, obj.name + ': ' + obj);
         cons.dir(obj);
       },
       dump: function (obj) {
@@ -85,7 +95,10 @@
           line = (typeof val == 'function') ? 'function' : val;
           cons.log(key + ': ' + line);
         });
-      },
+      }
+    };
+
+    var state = {
       reset: function () {
         self.storage.removeItem(self.name);
         self.storage.setItem(self.name, JSON.stringify({}));
@@ -98,7 +111,9 @@
       }
     };
 
-    $.extend(self, self.api);
+    $.extend(self, start);
+    $.extend(self, logging);
+    $.extend(self, state);
   };
 
   window.know = new Knowledge();
