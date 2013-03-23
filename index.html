@@ -6,7 +6,34 @@
 
   <title>know.js — Lightweight logs for the console and beyond</title>
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="know.js"></script>
+  <script>
+    know.help();
 
+    // Set know.js to use the key HelloKnow for the time being, stored in sessionStorage.
+    know.init('HelloKnow', false);
+
+    know.warn('DOM is not ready yet.');
+
+    $(document).ready(function () {
+      know.info('DOM ready !');
+
+      know.error('Is this an error ?');
+
+      $('#btn-show').click(function () {
+        know.info('Someone clicked !');
+        know.show();
+      });
+
+      $('#btn-reset').click(function () {
+        know.reset();
+      })
+
+      // know.dump prints the fields of an object and their values with a depth of 1.
+      know.dump(know);
+    });
+  </script>
 </head>
 <body>
   <div class="container-fluid">
@@ -17,18 +44,30 @@
         </header>
         <div class="row-fluid">
           <div class="span6">
-            <p class="lead">&#x25B2; TODO</p>
-            <p class="lead">&#x25BC; TODO</p>
+            <h2>How to use it</h2>
+            <p class="lead">&#x25B2; Bookmark &#x25B6; <a href="javascript:{know.show();};void(0);">This link</a> to get the bookmarklet.</p>
+            <p class="lead">&#x25BC; Best viewed with your console open.</p>
+            <p>To open the console, try either <code>⌘ ⎇ I</code>, <code>⌘ ⎇ K</code>, <code>Ctrl ⎇ K</code> or <code>F12</code> depending on your OS / browser.</p>
+            <p>You can then type and execute <code>know.help()</code> to get the API.</p>
           </div>
-          <div class="span6"></div>
+          <div class="span6">
+            <h2>What's inside</h2>
+            <ul>
+              <li><a href="http://caniuse.com/#compare=ie+8,firefox+19,chrome+23,safari+5">IE8+, Webkit DevTools, Firefox DevTools, Firebug compatible.</a></li>
+              <li>Store logs in <code>sessionStorage</code> or <code>localStorage</code>, pick one.</li>
+              <li>Share logs with your coworkers via <a href="http://gist.github.com/">Gists</a> (<a href="http://developer.github.com/v3/#cross-origin-resource-sharing">but beware of CORS</a>).</li>
+              <li>Create a bookmarklet and display logs right into your browser window.</li>
+              <li>Logs are stored and shared in JSON and use an easy to parse easy to read syntax.</li>
+            </ul>
+            <p><a href="#" class="btn btn-primary input-block-level" id="btn-show">Click me to make the know pop-up appear !</a></p>
+            <p><a href="#" class="btn btn-primary input-block-level" id="btn-reset">Click me to reset the logs !</a></p>
+          </div>
         </div>
         <footer>
-          <p>know.js © 2013 <a href="https://twitter.com/ThibWeb">@ThibWeb</a> Released under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+          <p style="text-align:center; margin-top:50px;">know.js © 2013 <a href="https://github.com/ThibWeb">@ThibWeb</a> Released under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
         </footer>
       </div>
     </div>
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="know.js"></script>
 </body>
 </html>

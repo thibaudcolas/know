@@ -1,6 +1,6 @@
 ```javascript
   /**
-   * know.js — v0.5.0
+   * know.js — v0.5.1
    * ---------------------------------------------------------------------
    * A simple tool to log stuff inside the console and beyond.
    * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
@@ -14,6 +14,8 @@ This is a little weekend project which I built to try to make the [Console API](
 ## Demo
 
 ## Install
+
+Assuming you use jQuery, simply add `<script src="know.js"></script>` to your page. know.js is compatible with jQuery 1.4+.
 
 ## Usage
 
