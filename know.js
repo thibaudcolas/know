@@ -24,7 +24,8 @@
      * Parameters are ordered as follows :
      * - The ones that are consts.
      * - The ones that will be set w/ init.
-     * - The ones that aren't logging - related.
+     * - The ones that rule the pop-up.
+     * - The ones that manage the gist creation.
      * - The log levels.
      * - The usage instructions.
      */
@@ -37,8 +38,8 @@
     self.key = null;
     self.token = null;
     self.id = null;
-
     self.storage = window.sessionStorage;
+
     self.popup = {
       id: 'know-popup',
       title: self.name + ' ' + self.version + ' — know.show() :',
@@ -49,11 +50,15 @@
         'z-index': '1001',
         top: '25%',
         right: '1%',
-        height: '50%',
-
+        'max-height': '50%',
+        'max-width' : '30%',
         padding: '5px',
         overflow : 'scroll'
       }
+    };
+
+    self.gist = {
+      url: ''
     };
 
     self.level = {
@@ -66,7 +71,8 @@
       title: self.name + ' ' + self.version + ' — know.help() :',
       first: '- first define a key w/ know.init(key, store?)',
       secund: '- then log to console w/ know.{info,warn,error}(message)',
-      third: '- your logs are stored in (store? local : session) + Storage'
+      third: '- your logs are stored w/ (store? local : session) + Storage',
+      fourth: '- you can view your logs w/ know.show(). Close on mouseleave.'
     };
 
     /**
@@ -74,15 +80,25 @@
      * - The low-level ones, basic functionality.
      * - The starters, good to call once in a while.
      * - The logging API.
-     * - The ones that impact our knowledge (reset it, display it).
+     * - The ones that manage the storage.
+     * - The ones that display our logs.
      */
+
+    self.stamp = function () {
+      var now = new Date();
+      var min = now.getMinutes();
+      min = min < 10 ? '0' + min : min;
+      var sec = now.getSeconds();
+      sec = sec < 10 ? '0' + sec : sec;
+      return min + ':' + sec;
+    };
 
     self.store = function (line) {
       var raw = self.storage.getItem(self.name);
       var logs = raw ? $.parseJSON(raw) : {};
       var lines = logs[self.id] || [];
 
-      lines.push(line);
+      lines.push(self.stamp() + self.sep + line);
       logs[self.id] = lines;
       self.storage.setItem(self.name, JSON.stringify(logs));
     };
@@ -144,7 +160,10 @@
           logs[self.id] = [];
           self.storage.setItem(self.name, JSON.stringify(logs));
         }
-      },
+      }
+    };
+
+    var ui = {
       show: function () {
         var $display = $('<div id="' + self.popup.id + '">');
         $display.css(self.popup.css);
@@ -166,12 +185,20 @@
         $display.mouseleave(function () {
           $(this).fadeOut(100);
         });
+      },
+      share: function () {
+        var confirm;
+        var raw = self.storage.getItem(self.name);
+        if (confirm && raw) {
+
+        }
       }
     };
 
     $.extend(self, start);
     $.extend(self, logging);
     $.extend(self, state);
+    $.extend(self, ui);
   };
 
   window.know = new Knowledge();
