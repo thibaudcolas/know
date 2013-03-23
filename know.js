@@ -4,7 +4,7 @@
  * A simple tool to log stuff inside the console and beyond.
  * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
  */
-s
+
 (function (factory, $) {
   if (typeof define === 'function') {
     define(['$'], factory);
