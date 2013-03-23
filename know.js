@@ -62,8 +62,8 @@
     self.gist = {
       url: 'https://api.github.com/gists',
       confirm: 'Upload logs to gist.github.com ?',
-      description: 'Log file generated w/ know.js',
-      public: false,
+      description: 'Log file generated w/ ' + self.name + ' ' + self.version,
+      'public': false,
       ext: '.json'
     };
 
@@ -78,7 +78,8 @@
       first: '- first define a key w/ know.init(key, store?)',
       secund: '- then log to console w/ know.{info,warn,error}(message)',
       third: '- your logs are stored w/ (store? local : session) + Storage',
-      fourth: '- you can view your logs w/ know.show(). Close on mouseleave.'
+      fourth: '- you can view your logs w/ know.show(). Close on mouseleave.',
+      fifth: '- you can share your logs w/ know.share() as GitHub Gists.'
     };
 
     /**
@@ -150,8 +151,8 @@
         var line;
         $.each(obj, function (key, val) {
           line = (typeof val == 'function') ? 'function' : val;
-          cons.log(self.sep + ' ' + key + ': ' + line);
-          self.store(self.sep + ' ' + key + ': ' + line);
+          cons.log(' ' + key + ': ' + line);
+          self.store(' ' + key + ': ' + line);
         });
       }
     };
@@ -199,12 +200,12 @@
         var raw = self.storage.getItem(self.name);
         if (confirm && raw) {
           var data = {
-            public: self.gist.public,
+            'public': self.gist['public'],
             description: self.gist.description
           };
           data.files = {};
           data.files[self.id + self.gist.ext] = {
-            content: 'hello'//JSON.parse(raw)
+            content: raw
           };
           $.ajax({
             type: 'POST',
@@ -212,7 +213,9 @@
             url: self.gist.url,
             data: JSON.stringify(data),
             success: function (data) {
-              self.log(self.level.info, 'upload to ' + data.html_url);
+              var link = '<a href="' + data.html_url + '">' + data.html_url + '</a>';
+              self.log(self.level.info, 'upload to ' + link);
+              window.alert(data.html_url);
             }
           });
         }
