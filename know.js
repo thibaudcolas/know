@@ -21,7 +21,9 @@
     var self = this;
 
     /**
-     * Parameters are ordered as follows :
+     * Parameters !
+     * ---------------------------------------------------------------------
+     * Ordered as follows :
      * - The ones that are consts.
      * - The ones that will be set w/ init.
      * - The ones that rule the pop-up.
@@ -58,7 +60,11 @@
     };
 
     self.gist = {
-      url: ''
+      url: 'https://api.github.com/gists',
+      confirm: 'Upload logs to gist.github.com ?',
+      description: 'Log file generated w/ know.js',
+      public: false,
+      ext: '.json'
     };
 
     self.level = {
@@ -76,7 +82,9 @@
     };
 
     /**
-     * Functions are ordered as follows :
+     * Functions !
+     * ---------------------------------------------------------------------
+     * Ordered as follows :
      * - The low-level ones, basic functionality.
      * - The starters, good to call once in a while.
      * - The logging API.
@@ -187,13 +195,35 @@
         });
       },
       share: function () {
-        var confirm;
+        var confirm = window.confirm(self.gist.confirm);
         var raw = self.storage.getItem(self.name);
         if (confirm && raw) {
-
+          var data = {
+            public: self.gist.public,
+            description: self.gist.description
+          };
+          data.files = {};
+          data.files[self.id + self.gist.ext] = {
+            content: 'hello'//JSON.parse(raw)
+          };
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: self.gist.url,
+            data: JSON.stringify(data),
+            success: function (data) {
+              self.log(self.level.info, 'upload to ' + data.html_url);
+            }
+          });
         }
       }
     };
+
+    /**
+     * Extend !
+     * ---------------------------------------------------------------------
+     * Everything falls into places.
+     */
 
     $.extend(self, start);
     $.extend(self, logging);
@@ -201,5 +231,8 @@
     $.extend(self, ui);
   };
 
+  /**
+   * Indeed, know.js brings new knowledge.
+   */
   window.know = new Knowledge();
 }, jQuery);
