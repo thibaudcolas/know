@@ -7,6 +7,8 @@
    */
 ```
 
+[![Code Climate](https://codeclimate.com/github/ThibWeb/know.png)](https://codeclimate.com/github/ThibWeb/know)
+
 ## Why
 
 This is a little weekend project which I built to try to make the [Console API](https://getfirebug.com/wiki/index.php/Console_API) [easier to work with](http://lists.w3.org/Archives/Public/public-script-coord/2013JanMar/0180.html).
