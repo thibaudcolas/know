@@ -2,7 +2,7 @@
  * know.js — v0.5.1
  * ---------------------------------------------------------------------
  * A simple tool to log stuff inside the console and beyond.
- * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
+ * © 2013 @thibaud_colas Released under the MIT and GPL Licenses.
  */
 
 (function (factory, $) {

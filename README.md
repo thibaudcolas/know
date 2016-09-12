@@ -3,11 +3,11 @@
    * know.js — v0.5.1
    * ---------------------------------------------------------------------
    * A simple tool to log stuff inside the console and beyond.
-   * © 2013 @ThibWeb Released under the MIT and GPL Licenses.
+   * © 2013 @thibaud_colas Released under the MIT and GPL Licenses.
    */
 ```
 
-[![Code Climate](https://codeclimate.com/github/ThibWeb/know.png)](https://codeclimate.com/github/ThibWeb/know)
+[![Code Climate](https://codeclimate.com/github/thibaudcolas/know.png)](https://codeclimate.com/github/thibaudcolas/know)
 
 ## Why
 
@@ -15,7 +15,7 @@ This is a little weekend project which I built to try to make the [Console API](
 
 ## Demo
 
-A simple demo is available [here](https://rawgithub.com/ThibWeb/know/master/index.html#). Notice the URL ? Kudos to [rawgithub.com](https://rawgithub.com) for providing this neat little trick.
+A simple demo is available [here](https://rawgithub.com/thibaudcolas/know/master/index.html#). Notice the URL ? Kudos to [rawgithub.com](https://rawgithub.com) for providing this neat little trick.
 
 ## Install
 
